@@ -2,6 +2,15 @@
   "name": "pokedex",
   "version": "0.1.0",
   "private": true,
+  "description": "Pokedex web",
+  "author": "Maritza Rodriguez",
+  "keywords": [
+    "next",
+    "sass",
+    " typescript",
+    "Rest API",
+    "pokedex"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -18,5 +27,17 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

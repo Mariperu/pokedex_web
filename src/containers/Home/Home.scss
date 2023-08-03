@@ -1,0 +1,17 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  text-align: center;
+  &__search,
+  &__selects {
+    padding: 0 20px;
+  }
+  &__cards {
+    padding: 40px 0 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+}

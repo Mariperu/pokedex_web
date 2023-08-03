@@ -1,0 +1,16 @@
+.select {
+  margin-bottom: 15px;
+  select {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    line-height: 20px;
+    border-radius: 10px;
+    padding: 8px;
+    color: var(--black);
+    background: var(--silver100);
+    box-shadow: var(--shadowBlack);
+    text-shadow: var(--shadowBlack);
+    border: none;
+  }
+}

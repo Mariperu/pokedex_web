@@ -45,6 +45,7 @@ export const Home = () => {
     setType(initialState.type);
   };
 
+  const image = "./../public/assets/pokeball.png";
   return (
     <section className="home">
       <section className="home__logo">
@@ -78,10 +79,30 @@ export const Home = () => {
         />
       </section>
       <section className="home__cards">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Card
+          number={45}
+          name="Bulbasaur"
+          image="/assets/pokeball.png"
+          types={["poison", "grass"]}
+        />
+        <Card
+          number={49}
+          name="Bulbasaur sdd afaf"
+          image="/assets/pokeball.png"
+          types={["poison", "poison"]}
+        />
+        <Card
+          number={49}
+          name="Bulbasaur "
+          image="/assets/pokeball.png"
+          types={["poison", "grass"]}
+        />
+        <Card
+          number={49}
+          name="Bulbasaur sdd afaf"
+          image="/assets/pokeball.png"
+          types={["poison", "grass"]}
+        />
       </section>
     </section>
   );

@@ -2,9 +2,12 @@
 @import "./mixins";
 
 @import "./../components/Card/Card.scss";
+@import "./../components/FloatingButton/FloatingButton.scss";
+@import "./../components/Footer/Footer.scss";
 @import "./../components/Logo/Logo.scss";
 @import "./../components/Search/Search.scss";
 @import "./../components/Select/Select.scss";
 @import "./../components/Type/Type.scss";
 
 @import "./../containers/Home/Home.scss";
+@import "./../containers/Pokemon/Pokemon.scss";

@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Card } from "@/components/Card";
 import { Logo } from "@/components/Logo";
 import { Search } from "@/components/Search";
 import { Select } from "@/components/Select";
-import { useState } from "react";
+import { FloatingButton } from "@/components/FloatingButton";
+import { Pokemon } from "../Pokemon";
 
 const initialState = {
   valueSearch: "",
@@ -14,10 +16,45 @@ const initialState = {
 export const Home = () => {
   const types: Array<string> = ["fire", "grass", "water"];
 
+  const pokemons: Array<any> = [
+    {
+      id: "1",
+      number: 50,
+      name: "Bulbasaur",
+      image: "/assets/pokeball.png",
+      types: ["poison"],
+    },
+
+    {
+      id: "2",
+      number: 500,
+      name: "Bulbasaur",
+      image: "/assets/pokeball.png",
+      types: ["grass"],
+    },
+    {
+      id: "3",
+      number: 45,
+      name: "Bulbasaur",
+      image: "/assets/pokeball.png",
+      types: ["poison", "grass"],
+    },
+
+    {
+      id: "4",
+      number: 50,
+      name: "Bulbasaur",
+      image: "/assets/pokeball.png",
+      types: ["poison"],
+    },
+  ];
+
   const [valueSearch, setValueSearch] = useState(initialState.valueSearch);
   const [valueSort, setValueSort] = useState(initialState.valueSort);
   const [type, setType] = useState(initialState.type);
   const [rarity, setRarity] = useState(initialState.rarity);
+
+  const [showCard, setShowCard] = useState(false);
 
   const onSearch = (e: any) => {
     e.preventDefault();
@@ -45,11 +82,16 @@ export const Home = () => {
     setType(initialState.type);
   };
 
-  const image = "./../public/assets/pokeball.png";
+  const onOpenCard = (e: any) => {
+    e.preventDefault();
+    console.log(e.target.id);
+    setShowCard(!showCard);
+  };
+
   return (
     <section className="home">
       <section className="home__logo">
-        <Logo />
+        <Logo className="logo" />
       </section>
       <section className="home__search">
         <Search
@@ -79,31 +121,23 @@ export const Home = () => {
         />
       </section>
       <section className="home__cards">
-        <Card
-          number={45}
-          name="Bulbasaur"
-          image="/assets/pokeball.png"
-          types={["poison", "grass"]}
-        />
-        <Card
-          number={49}
-          name="Bulbasaur sdd afaf"
-          image="/assets/pokeball.png"
-          types={["poison", "poison"]}
-        />
-        <Card
-          number={49}
-          name="Bulbasaur "
-          image="/assets/pokeball.png"
-          types={["poison", "grass"]}
-        />
-        <Card
-          number={49}
-          name="Bulbasaur sdd afaf"
-          image="/assets/pokeball.png"
-          types={["poison", "grass"]}
-        />
+        {pokemons.map((item, index: number) => {
+          return (
+            <Card
+              key={index}
+              idPokemon={String(item.id)}
+              number={item.number}
+              name={item.name}
+              image={item.image}
+              types={item.types}
+              onHandleClick={onOpenCard}
+            />
+          );
+        })}
       </section>
+      <FloatingButton />
+
+      {/* {showCard && <Pokemon />} */}
     </section>
   );
 };

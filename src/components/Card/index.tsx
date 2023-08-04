@@ -1,15 +1,25 @@
+import { MouseEventHandler } from "react";
 import { Type } from "../Type";
 
 interface Props {
+  idPokemon: string;
   number: number | string;
   name: string;
   image: string;
   types: Array<string>;
+  onHandleClick?: MouseEventHandler;
 }
 
-export const Card = ({ number, name, image, types }: Props) => {
+export const Card = ({
+  idPokemon,
+  number,
+  name,
+  image,
+  types,
+  onHandleClick,
+}: Props) => {
   return (
-    <section className="card">
+    <section className="card" id={idPokemon} onClick={onHandleClick}>
       <section className="card__content">
         <p className="card__content__number">#{number}</p>
 
@@ -22,7 +32,7 @@ export const Card = ({ number, name, image, types }: Props) => {
 
         <section className="card__content__types">
           {types.map((item, index: number) => {
-            return <Type key={index} name={item} />;
+            return <Type key={index} name={item} className="type" />;
           })}
         </section>
       </section>

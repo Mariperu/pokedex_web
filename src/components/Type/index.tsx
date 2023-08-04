@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 interface Props {
   name: string;
+  className: string;
 }
 
 export enum Colores {
@@ -11,7 +12,7 @@ export enum Colores {
   amarillo = "yellow",
 }
 
-export const Type = ({ name }: Props) => {
+export const Type = ({ name, className }: Props) => {
   const [color, setColor] = useState("gray");
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export const Type = ({ name }: Props) => {
   }, [name]);
 
   return (
-    <section className="type" style={{ backgroundColor: `${color}` }}>
+    <section className={className} style={{ backgroundColor: `${color}` }}>
       {name}
     </section>
   );

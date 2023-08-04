@@ -11,6 +11,8 @@ $colorGray: #c4c4c4;
 
 $shadowBlack: (0px 4px 4px rgba(0, 0, 0, 0.25));
 
+$gradientRed: linear-gradient(180deg, rgba(218, 18, 5, 0.6) 0%, $colorRed 100%);
+
 :root {
   --font-fam: #{$fontPrimary};
   --red: #{$colorRed};
@@ -20,4 +22,5 @@ $shadowBlack: (0px 4px 4px rgba(0, 0, 0, 0.25));
   --black: #{$colorBlack};
   --gray: #{$colorGray};
   --shadowBlack: #{$shadowBlack};
+  --gradientRed: #{$gradientRed};
 }

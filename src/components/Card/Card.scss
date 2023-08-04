@@ -1,6 +1,7 @@
 .card {
   padding: 35px 0 0;
   border: 1px solid red;
+  cursor: pointer;
   &__content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -40,7 +41,6 @@
       background-size: contain;
       height: 65px;
       width: 100%;
-      //background-image: url(./../../../public/assets/pokeball.png);
     }
     &__types {
       grid-column: 1 / span 2;

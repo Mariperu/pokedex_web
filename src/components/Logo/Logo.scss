@@ -1,5 +1,22 @@
-.logo {
+.logo,
+.logoModal {
   display: flex;
   flex-direction: column;
   text-align: center;
+  section {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 100%;
+  }
+}
+.logo {
+  section {
+    height: 120px;
+  }
+}
+.logoModal {
+  section {
+    height: 50px;
+  }
 }

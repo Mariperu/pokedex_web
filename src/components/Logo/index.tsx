@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
@@ -6,29 +5,12 @@ interface Props {
 }
 
 export const Logo = ({ className }: Props) => {
+  const image = "/assets/logo.png";
+
   return (
-    <section className="logo">
+    <section className={className}>
       <Link href="/" passHref>
-        <section>
-          <Image
-            src="/assets/logo.png"
-            alt="logo"
-            priority={true}
-            width={160}
-            height={60}
-            className={className}
-          ></Image>
-        </section>
-        <section>
-          <Image
-            src="/assets/pokeball.png"
-            alt="logo"
-            priority={true}
-            width={50}
-            height={50}
-            className={className}
-          ></Image>
-        </section>
+        <section style={{ backgroundImage: `url(${image})` }}></section>
       </Link>
     </section>
   );

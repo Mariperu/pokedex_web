@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { HeadContent } from "./../../components";
+import { Footer } from "@/components/Footer";
 
 type Props = {
   children: ReactNode;
@@ -19,6 +20,7 @@ export const BasicLayout = (props: Props) => {
         keywords={props.keywords}
       />
       <main>{props.children}</main>
+      <Footer />
     </div>
   );
 };

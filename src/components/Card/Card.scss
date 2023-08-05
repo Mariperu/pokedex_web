@@ -1,0 +1,101 @@
+.card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  border-radius: 10px;
+  box-shadow: var(--shadowBlack);
+  background-color: var(--silver100);
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+  transition: ease 0.3s;
+  &__number,
+  &__name {
+    text-shadow: var(--shadowBlack);
+    color: var(--black);
+  }
+  &__number {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    text-align: left;
+    padding-bottom: 10px;
+    font-size: 14px;
+    line-height: 16px;
+  }
+  &__name {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    text-align: left;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  &__image {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    position: absolute;
+    top: -170%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    height: 65px;
+    width: 100%;
+    image-rendering: pixelated;
+  }
+  &__types {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 10px;
+  }
+
+  @include breakpoints(sm) {
+    padding: 15px;
+    &__image {
+      top: -180%;
+      height: 65px;
+      width: 100%;
+    }
+  }
+  @include breakpoints(md) {
+    &__number {
+      padding-bottom: 15px;
+      font-size: 16px;
+      line-height: 18px;
+    }
+    &__name {
+      font-size: 20px;
+      line-height: 22px;
+    }
+    &__image {
+      top: -170%;
+      height: 90px;
+    }
+    &__types {
+      padding-top: 15px;
+    }
+  }
+  @include breakpoints(lg) {
+    border-radius: 10px;
+    padding: 20px;
+    &__number {
+      padding-bottom: 20px;
+      font-size: 18px;
+      line-height: 20px;
+    }
+    &__name {
+      text-align: center;
+      font-size: 22px;
+      line-height: 24px;
+    }
+    &__types {
+      padding-top: 20px;
+    }
+  }
+}
+.card:hover {
+  transition: ease 0.3s;
+  scale: 1.01;
+  box-shadow: var(--shadowBlack2);
+}

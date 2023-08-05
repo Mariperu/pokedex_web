@@ -1,0 +1,32 @@
+.logo,
+.logoModal {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  section {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 100%;
+  }
+}
+.logo {
+  section {
+    height: 120px;
+  }
+  @include breakpoints(sm) {
+    section {
+      height: 150px;
+    }
+  }
+  @include breakpoints(md) {
+    section {
+      height: 200px;
+    }
+  }
+}
+.logoModal {
+  section {
+    height: 50px;
+  }
+}

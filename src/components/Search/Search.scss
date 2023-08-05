@@ -1,0 +1,100 @@
+.search {
+  margin: 20px 0;
+  width: 100%;
+  label {
+    color: var(--black);
+    font-size: 22px;
+    line-height: 25px;
+    font-weight: bold;
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    input,
+    button {
+      border-radius: 10px;
+      color: var(--black);
+      background: var(--white);
+      box-shadow: var(--shadowBlack);
+      border: none;
+    }
+    input {
+      width: 85%;
+      margin-right: 5px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 20px;
+      padding: 12px 7px 7px;
+    }
+    ::placeholder {
+      font-size: 16px;
+      line-height: 20px;
+      color: var(--gray);
+    }
+    input[type="search"] {
+      appearance: initial;
+    }
+    button {
+      width: 15%;
+      margin-left: 5px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+      cursor: pointer;
+      transition: ease 0.3s;
+    }
+    button:hover {
+      scale: 1.1;
+    }
+  }
+  @include breakpoints(sm) {
+    margin: 30px 0 20px;
+    label {
+      font-size: 24px;
+      line-height: 26px;
+    }
+    div {
+      margin-top: 10px;
+      input {
+        font-size: 18px;
+        line-height: 22px;
+        padding: 12px 7px 7px;
+      }
+      ::placeholder {
+        font-size: 18px;
+        line-height: 22px;
+      }
+      button {
+        font-size: 22px;
+      }
+    }
+  }
+  @include breakpoints(md) {
+    margin: 30px 0 20px;
+    label {
+      font-size: 30px;
+      line-height: 34px;
+    }
+    div {
+      margin-top: 15px;
+      input {
+        font-size: 20px;
+        line-height: 20px;
+        padding: 12px 10px;
+      }
+      ::placeholder {
+        font-size: 20px;
+      }
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+  @include breakpoints(lg) {
+    margin: 0;
+  }
+}

@@ -1,15 +1,25 @@
 import { RiCloseCircleFill } from "react-icons/ri";
 import { Logo } from "@/components/Logo";
 import { Type } from "@/components/Type";
+import { MouseEventHandler } from "react";
 
-export const Pokemon = () => {
+type Props = {
+  idPokemon: number;
+  onHandleClose?: MouseEventHandler;
+};
+
+export const Pokemon = ({ idPokemon, onHandleClose }: Props) => {
   const image = "/assets/pokeball.png";
+  console.log(idPokemon, "pokemon");
+
+  // const pokemon = Data.filter((project) => project.id === projectId)[0];
   return (
     <section className="pokemon" style={{ backgroundColor: "green" }}>
       <section className="pokemon__header">
         <Logo className="logoModal pokemon__header__logo" />
         <p className="pokemon__header__number">#741</p>
-        <i>
+
+        <i onClick={onHandleClose}>
           <RiCloseCircleFill />
         </i>
         <p className="pokemon__header__name">Bulbasaur</p>
@@ -20,6 +30,42 @@ export const Pokemon = () => {
       </section>
 
       <section className="pokemon__content">
+        <p className="pokemon__content__description">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
+          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
+          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
+          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
+          voluptatibus. Praesentium eaque facilis ducimus consequuntur
+          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
+        </p>
+        <p className="pokemon__content__description">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
+          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
+          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
+          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
+          voluptatibus. Praesentium eaque facilis ducimus consequuntur
+          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
+        </p>
+        <p className="pokemon__content__description">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
+          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
+          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
+          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
+          voluptatibus. Praesentium eaque facilis ducimus consequuntur
+          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
+        </p>
+        <p className="pokemon__content__description">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
+          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
+          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
+          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
+          voluptatibus. Praesentium eaque facilis ducimus consequuntur
+          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
+        </p>
         <p className="pokemon__content__description">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
           modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium

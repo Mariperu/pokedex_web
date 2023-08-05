@@ -6,11 +6,12 @@
   bottom: 25px;
   right: 25px;
   position: fixed;
-  z-index: 3;
+  z-index: 100;
+  cursor: pointer;
   section {
     a {
       svg {
-        font-size: 40px;
+        font-size: 50px;
         border-radius: 50%;
         background-color: var(--silver200);
         transition: ease 0.3s;
@@ -20,14 +21,29 @@
         }
       }
       svg:hover {
-        scale: 1.1;
+        scale: 1.05;
         transition: ease 0.3s;
       }
     }
   }
   section:hover {
-    scale: 1.1;
+    scale: 1.05;
     transition: ease 0.3s;
+  }
+  @include breakpoints(sm) {
+    bottom: 40px;
+    right: 40px;
+    section {
+      a {
+        svg {
+          font-size: 55px;
+        }
+      }
+    }
+  }
+  @include breakpoints(lg) {
+    bottom: 5px;
+    right: 10px;
   }
 }
 @keyframes effect {

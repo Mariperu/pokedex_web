@@ -10,6 +10,10 @@ $colorBlack: #000;
 $colorGray: #c4c4c4;
 
 $shadowBlack: (0px 4px 4px rgba(0, 0, 0, 0.25));
+$shadowBlack2: (0px 8px 8px rgba(0, 0, 0, 0.5));
+$shadowBlack3: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+
+$shadowWhite: 0px 4px 10px 0px #fff;
 
 $gradientRed: linear-gradient(180deg, rgba(218, 18, 5, 0.6) 0%, $colorRed 100%);
 
@@ -22,5 +26,8 @@ $gradientRed: linear-gradient(180deg, rgba(218, 18, 5, 0.6) 0%, $colorRed 100%);
   --black: #{$colorBlack};
   --gray: #{$colorGray};
   --shadowBlack: #{$shadowBlack};
+  --shadowBlack2: #{$shadowBlack2};
+  --shadowBlack3: #{$shadowBlack3};
+  --shadowWhite: #{$shadowWhite};
   --gradientRed: #{$gradientRed};
 }

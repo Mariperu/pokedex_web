@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { IoIosArrowDropupCircle } from "react-icons/io";
-import { ScrollIdentifier } from "@/hooks/ScrollIdentifier";
+import { ScrollIdentifier } from "@/hooks/UseScrollIdentifier";
 
 export const FloatingButton = () => {
   const showButton = ScrollIdentifier(300);

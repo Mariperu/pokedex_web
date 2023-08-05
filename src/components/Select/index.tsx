@@ -1,11 +1,11 @@
 import { ChangeEvent } from "react";
 
-interface Props {
+type Props = {
   name: string;
   options: Array<string>;
   value: string;
   onHandleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-}
+};
 
 export const Select = ({ name, options, value, onHandleChange }: Props) => {
   return (

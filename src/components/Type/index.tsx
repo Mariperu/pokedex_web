@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-interface Props {
+
+type Props = {
   name: string;
   className: string;
-}
+};
 
 export enum Colores {
   gray = "gray",

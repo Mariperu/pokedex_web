@@ -1,0 +1,35 @@
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($colorBlack, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  height: 100vh;
+  &__box {
+    position: absolute;
+    background: transparent;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+  @include breakpoints(sm) {
+    &__box {
+      top: 8%;
+      width: 50%;
+    }
+  }
+  @include breakpoints(md) {
+    &__box {
+      top: 10%;
+    }
+  }
+  @include breakpoints(lg) {
+    display: none;
+    position: fixed none;
+  }
+}

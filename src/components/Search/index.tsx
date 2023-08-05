@@ -1,11 +1,11 @@
 import { FormEvent } from "react";
 import { BiSearch } from "react-icons/bi";
 
-interface Props {
+type Props = {
   placeholder: string;
   value: string | number;
   onHandleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-}
+};
 
 export const Search = ({ onHandleSubmit, placeholder }: Props) => {
   return (

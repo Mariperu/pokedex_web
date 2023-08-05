@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-interface Props {
+type Props = {
   className?: string;
-}
+};
 
 export const Logo = ({ className }: Props) => {
   const image = "/assets/logo.png";

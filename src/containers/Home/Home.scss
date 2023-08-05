@@ -3,15 +3,102 @@
   flex-direction: column;
   padding: 40px 20px;
   text-align: center;
-  &__search,
-  &__selects {
-    padding: 0 20px;
+  &__main {
+    &__search,
+    &__selects {
+      padding: 0 20px;
+    }
+    &__cards {
+      padding: 70px 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 10px;
+      row-gap: 50px; //10px;
+    }
   }
-  &__cards {
-    padding: 30px 0 40px;
+
+  &__detail {
+    display: none;
+  }
+  @include breakpoints(sm) {
+    padding: 70px;
+    &__main {
+      &__search,
+      &__selects {
+        padding: 0 100px;
+      }
+      &__cards {
+        padding: 70px 0 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 20px;
+        row-gap: 60px;
+      }
+    }
+  }
+  @include breakpoints(md) {
+    padding: 70px;
+    &__main {
+      &__search,
+      &__selects {
+        padding: 0 180px;
+      }
+      &__cards {
+        padding: 70px 0 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 20px;
+        row-gap: 90px;
+      }
+    }
+  }
+  @include breakpoints(lg) {
+    padding: 0 40px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 0.65fr;
     column-gap: 10px;
-    row-gap: 10px;
+    &__main {
+      display: grid;
+      grid-template-columns: 0.75fr 2fr;
+      grid-template-rows: auto auto auto;
+      column-gap: 30px;
+      padding: 0 20px;
+      &__logo {
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 1;
+      }
+      &__search {
+        grid-column: 2 / span 1;
+        grid-row: 1 / span 1;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        margin: auto 0 30px;
+      }
+      &__selects {
+        grid-column: 1 / span 2;
+        grid-row: 2 / span 1;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 45px;
+      }
+      &__cards {
+        grid-column: 1 / span 2;
+        grid-row: 3 / span 1;
+        padding: 80px 0px 50px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 20px;
+        row-gap: 80px;
+      }
+    }
+    &__detail {
+      display: block;
+      background-color: transparent;
+      position: sticky;
+      top: 1%;
+      height: 95vh;
+    }
   }
 }

@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { GetPokemonApi } from "@/pages/api";
 import { Card } from "@/components/Card";
 import { Logo } from "@/components/Logo";
 import { Search } from "@/components/Search";
@@ -7,8 +7,7 @@ import { Select } from "@/components/Select";
 import { FloatingButton } from "@/components/FloatingButton";
 import Modal from "@/components/Modal";
 import { Pokemon } from "../Pokemon";
-
-//pokeapi.co/api/v2/pokemon?limit=251&offset=0
+import { capitalizer } from "@/helpers/capitalizer";
 
 const initialState = {
   valueSearch: "",
@@ -20,104 +19,15 @@ const initialState = {
 export const Home = () => {
   const types: Array<string> = ["fire", "grass", "water"];
 
-  const pokemons: Array<any> = [
-    {
-      id: "1",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-
-    {
-      id: "2",
-      number: 500,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["grass"],
-    },
-    {
-      id: "3",
-      number: 45,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison", "grass"],
-    },
-
-    {
-      id: "4",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "5",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "6",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "7",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-
-    {
-      id: "8",
-      number: 500,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["grass"],
-    },
-    {
-      id: "9",
-      number: 45,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison", "grass"],
-    },
-
-    {
-      id: "10",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "11",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "12",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-  ];
-
   const [valueSearch, setValueSearch] = useState(initialState.valueSearch);
   const [valueSort, setValueSort] = useState(initialState.valueSort);
   const [type, setType] = useState(initialState.type);
   const [rarity, setRarity] = useState(initialState.rarity);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [pokemonId, setPokemonId] = useState<number | null>(null);
+
+  const pokemons = GetPokemonApi();
 
   const onSearch = (e: any) => {
     e.preventDefault();
@@ -160,8 +70,9 @@ export const Home = () => {
       setIsOpen(false);
     }
   };
-  const onHandleClose = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
+  //e: React.MouseEvent<HTMLElement>
+  const onHandleClose = () => {
+    // e.stopPropagation();
     setIsOpen(false);
     setPokemonId(null);
   };
@@ -201,13 +112,12 @@ export const Home = () => {
           </section>
 
           <section className="home__main__cards">
-            {pokemons.map((item: any, index: number) => {
+            {pokemons?.map((item: any, index: number) => {
               return (
                 <Card
-                  key={item.id}
+                  key={index}
                   idPokemon={item.id}
-                  number={item.number}
-                  name={item.name}
+                  name={capitalizer(item.name)}
                   image={item.image}
                   types={item.types}
                   onHandleClick={onHandlePokemonId}

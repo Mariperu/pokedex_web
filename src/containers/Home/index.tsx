@@ -13,6 +13,7 @@ import {
   POKEMON_TYPE,
   initialStateOption,
 } from "@/utils/selectOptions";
+import { NoPokemon } from "@/components/NoPokemon";
 
 type Pokemon = {
   id: number;
@@ -23,24 +24,29 @@ type Pokemon = {
 
 export const Home = () => {
   const data = GetPokemonApi();
-  console.log("👻 -> Home -> data:", data);
-
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [pokemonId, setPokemonId] = useState<number | null>(null);
+  const [search, setSearch] = useState(initialStateOption.search);
   const [valueSort, setValueSort] = useState<string>(initialStateOption.sort);
+  const [type, setType] = useState(initialStateOption.type);
 
   useEffect(() => {
     if (data) setPokemons(data);
   }, [data]);
 
-  const [valueSearch, setValueSearch] = useState(initialStateOption.search);
-  const [type, setType] = useState(initialStateOption.type);
-
-  const onSearch = (e: any) => {
-    e.preventDefault();
-    setValueSearch(e.target.elements.searchInput.value);
+  const onSearch = (query: string) => {
+    const pokemons = [...data];
+    const searchedPokemons = pokemons.filter(
+      (elem) =>
+        elem.name.toLowerCase().includes(query.toLowerCase()) ||
+        elem.id.toString().includes(query)
+    );
+    if (query.length > 3 && searchedPokemons.length === 0) {
+      setPokemons([]);
+    } else {
+      setPokemons(searchedPokemons);
+    }
     setValueSort(initialStateOption.sort);
     setType(initialStateOption.type);
   };
@@ -91,9 +97,9 @@ export const Home = () => {
       setIsOpen(false);
     }
   };
-  //e: React.MouseEvent<HTMLElement>
-  const onHandleClose = () => {
-    // e.stopPropagation();
+
+  const onHandleClose = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
     setIsOpen(false);
     setPokemonId(null);
   };
@@ -106,9 +112,12 @@ export const Home = () => {
           </section>
           <section className="home__main__search">
             <Search
-              onHandleSubmit={onSearch}
+              onHandleChange={(e) => {
+                setSearch(e.target.value);
+                onSearch(e.target.value);
+              }}
               placeholder={"Example: Pikachu"}
-              value={valueSearch}
+              value={search}
             />
           </section>
           <section className="home__main__selects">
@@ -139,6 +148,9 @@ export const Home = () => {
                 />
               );
             })}
+            {pokemons?.length === 0 && (
+              <p className="home__main__cards__no-found">No results found.</p>
+            )}
           </section>
         </section>
 
@@ -146,7 +158,7 @@ export const Home = () => {
           {pokemonId !== null ? (
             <Pokemon idPokemon={pokemonId} />
           ) : (
-            <h1>SELECCIONA UN POKEMON</h1>
+            <NoPokemon />
           )}
         </section>
 

@@ -13,10 +13,18 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 10px;
-      row-gap: 50px; //10px;
+      row-gap: 50px;
+      &__no-found {
+        grid-column: 1 / span 2;
+        height: 32vh;
+        padding-top: 50px;
+        font-size: 18px;
+        line-height: 22px;
+        text-shadow: var(--shadowBlack);
+        color: var(--black);
+      }
     }
   }
-
   &__detail {
     display: none;
   }
@@ -33,6 +41,13 @@
         grid-template-columns: repeat(3, 1fr);
         column-gap: 20px;
         row-gap: 60px;
+        &__no-found {
+          grid-column: 1 / span 3;
+          height: 48vh;
+          padding-top: 50px;
+          font-size: 20px;
+          line-height: 22px;
+        }
       }
     }
   }
@@ -49,6 +64,11 @@
         grid-template-columns: repeat(3, 1fr);
         column-gap: 20px;
         row-gap: 90px;
+        &__no-found {
+          padding-top: 80px;
+          font-size: 26px;
+          line-height: 28px;
+        }
       }
     }
   }
@@ -92,6 +112,13 @@
         grid-template-columns: repeat(4, 1fr);
         column-gap: 20px;
         row-gap: 80px;
+        &__no-found {
+          grid-column: 1 / span 4;
+          height: 100px;
+          padding-top: 80px;
+          font-size: 20px;
+          line-height: 22px;
+        }
       }
     }
     &__detail {

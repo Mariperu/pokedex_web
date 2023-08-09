@@ -25,5 +25,5 @@ export const POKEMON_TYPE: any = [
   "ice",
   "dragon",
   "dark",
-  "fairy,",
+  "fairy",
 ];

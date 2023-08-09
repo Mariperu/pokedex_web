@@ -1,28 +1,30 @@
-import { FormEvent } from "react";
-import { BiSearch } from "react-icons/bi";
+import { ChangeEvent } from "react";
+import { TbMusic, TbMusicOff } from "react-icons/tb";
 
 type Props = {
   placeholder: string;
   value: string | number;
-  onHandleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const Search = ({ onHandleSubmit, placeholder }: Props) => {
+export const Search = ({ onHandleChange, placeholder, value }: Props) => {
   return (
-    <form className="search" onSubmit={onHandleSubmit} role="search">
-      <label htmlFor="search">Who do you want to catch?</label>
+    <section className="search">
+      <label>Who do you want to catch?</label>
       <div>
         <input
-          id="search"
-          type="search"
+          type="text"
           name="searchInput"
+          value={value}
           placeholder={placeholder}
           required
+          onChange={onHandleChange}
         />
-        <button type="submit">
-          <BiSearch />
+        <button>
+          <TbMusic />
+          {/* <TbMusicOff /> */}
         </button>
       </div>
-    </form>
+    </section>
   );
 };

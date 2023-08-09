@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { GetPokemonApi } from "@/pages/api";
 import { Card } from "@/components/Card";
 import { Logo } from "@/components/Logo";
 import { Search } from "@/components/Search";
@@ -7,142 +7,79 @@ import { Select } from "@/components/Select";
 import { FloatingButton } from "@/components/FloatingButton";
 import Modal from "@/components/Modal";
 import { Pokemon } from "../Pokemon";
+import { capitalizer } from "@/helpers/capitalizer";
+import {
+  POKEMON_SORT,
+  POKEMON_TYPE,
+  initialStateOption,
+} from "@/utils/selectOptions";
+import { NoPokemon } from "@/components/NoPokemon";
 
-//pokeapi.co/api/v2/pokemon?limit=251&offset=0
-
-const initialState = {
-  valueSearch: "",
-  valueSort: "Sort by:",
-  type: "Type:",
-  rarity: "Rarity:",
+type Pokemon = {
+  id: number;
+  name: string;
+  types: Array<string>;
+  image: string;
 };
 
 export const Home = () => {
-  const types: Array<string> = ["fire", "grass", "water"];
-
-  const pokemons: Array<any> = [
-    {
-      id: "1",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-
-    {
-      id: "2",
-      number: 500,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["grass"],
-    },
-    {
-      id: "3",
-      number: 45,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison", "grass"],
-    },
-
-    {
-      id: "4",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "5",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "6",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "7",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-
-    {
-      id: "8",
-      number: 500,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["grass"],
-    },
-    {
-      id: "9",
-      number: 45,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison", "grass"],
-    },
-
-    {
-      id: "10",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "11",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-    {
-      id: "12",
-      number: 50,
-      name: "Bulbasaur",
-      image: "/assets/pokeball.png",
-      types: ["poison"],
-    },
-  ];
-
-  const [valueSearch, setValueSearch] = useState(initialState.valueSearch);
-  const [valueSort, setValueSort] = useState(initialState.valueSort);
-  const [type, setType] = useState(initialState.type);
-  const [rarity, setRarity] = useState(initialState.rarity);
-
-  const [isOpen, setIsOpen] = useState(false);
+  const data = GetPokemonApi();
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [pokemonId, setPokemonId] = useState<number | null>(null);
+  const [search, setSearch] = useState(initialStateOption.search);
+  const [valueSort, setValueSort] = useState<string>(initialStateOption.sort);
+  const [type, setType] = useState(initialStateOption.type);
 
-  const onSearch = (e: any) => {
-    e.preventDefault();
-    setValueSearch(e.target.elements.searchInput.value);
-    setValueSort(initialState.valueSort);
-    setType(initialState.type);
-    setRarity(initialState.rarity);
+  useEffect(() => {
+    if (data) setPokemons(data);
+  }, [data]);
+
+  const onSearch = (query: string) => {
+    const pokemons = [...data];
+    const searchedPokemons = pokemons.filter(
+      (elem) =>
+        elem.name.toLowerCase().includes(query.toLowerCase()) ||
+        elem.id.toString().includes(query)
+    );
+    if (query.length > 3 && searchedPokemons.length === 0) {
+      setPokemons([]);
+    } else {
+      setPokemons(searchedPokemons);
+    }
+    setValueSort(initialStateOption.sort);
+    setType(initialStateOption.type);
   };
 
-  const onSort = (e: any) => {
-    setValueSort(e.target.value);
-    setType(initialState.type);
-    setRarity(initialState.rarity);
+  const onSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const option = e.target.value;
+    const sortedPokemons = [...data];
+    sortedPokemons.sort((a: Pokemon, b: Pokemon) => {
+      if (option === "Descending") {
+        return b.id - a.id;
+      } else if (option === "Ascending") {
+        return a.id - b.id;
+      } else if (option === "A to Z") {
+        return a.name.localeCompare(b.name);
+      } else if (option === "Z to A") {
+        return b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
+    setValueSort(option);
+    setPokemons(sortedPokemons);
+    setType(initialStateOption.type);
   };
 
   const onFilterByType = (e: any) => {
-    setType(e.target.value);
-    setValueSort(initialState.valueSort);
-    setRarity(initialState.rarity);
-  };
-
-  const onFilterByRarity = (e: any) => {
-    setRarity(e.target.value);
-    setValueSort(initialState.valueSort);
-    setType(initialState.type);
+    const option = e.target.value;
+    const pokemons = [...data];
+    const filteredPokemons = pokemons.filter((element) =>
+      element.types.some((type: any) => type.type.name === option)
+    );
+    setType(option);
+    setPokemons(filteredPokemons);
+    setValueSort(initialStateOption.sort);
   };
 
   const onHandlePokemonId = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -160,6 +97,7 @@ export const Home = () => {
       setIsOpen(false);
     }
   };
+
   const onHandleClose = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsOpen(false);
@@ -174,46 +112,45 @@ export const Home = () => {
           </section>
           <section className="home__main__search">
             <Search
-              onHandleSubmit={onSearch}
+              onHandleChange={(e) => {
+                setSearch(e.target.value);
+                onSearch(e.target.value);
+              }}
               placeholder={"Example: Pikachu"}
-              value={valueSearch}
+              value={search}
             />
           </section>
           <section className="home__main__selects">
             <Select
-              name={valueSort}
-              options={types}
+              name={"Sort by:"}
+              options={POKEMON_SORT}
               value={valueSort}
               onHandleChange={onSort}
             />
             <Select
-              name={type}
-              options={types}
+              name={"Type:"}
+              options={POKEMON_TYPE}
               value={type}
               onHandleChange={onFilterByType}
-            />
-            <Select
-              name={rarity}
-              options={types}
-              value={rarity}
-              onHandleChange={onFilterByRarity}
             />
           </section>
 
           <section className="home__main__cards">
-            {pokemons.map((item: any, index: number) => {
+            {pokemons?.map((item: any, index: number) => {
               return (
                 <Card
-                  key={item.id}
+                  key={index}
                   idPokemon={item.id}
-                  number={item.number}
-                  name={item.name}
+                  name={capitalizer(item.name)}
                   image={item.image}
                   types={item.types}
                   onHandleClick={onHandlePokemonId}
                 />
               );
             })}
+            {pokemons?.length === 0 && (
+              <p className="home__main__cards__no-found">No results found.</p>
+            )}
           </section>
         </section>
 
@@ -221,7 +158,7 @@ export const Home = () => {
           {pokemonId !== null ? (
             <Pokemon idPokemon={pokemonId} />
           ) : (
-            <h1>SELECCIONA UN POKEMON</h1>
+            <NoPokemon />
           )}
         </section>
 

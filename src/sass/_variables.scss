@@ -8,6 +8,7 @@ $colorSilver200: #eceef0;
 $colorWhite: #fff;
 $colorBlack: #000;
 $colorGray: #c4c4c4;
+$colorGray200: #656565;
 
 $shadowBlack: (0px 4px 4px rgba(0, 0, 0, 0.25));
 $shadowBlack2: (0px 8px 8px rgba(0, 0, 0, 0.5));
@@ -25,6 +26,7 @@ $gradientRed: linear-gradient(180deg, rgba(218, 18, 5, 0.6) 0%, $colorRed 100%);
   --white: #{$colorWhite};
   --black: #{$colorBlack};
   --gray: #{$colorGray};
+  --gray200: #{$colorGray200};
   --shadowBlack: #{$shadowBlack};
   --shadowBlack2: #{$shadowBlack2};
   --shadowBlack3: #{$shadowBlack3};

@@ -1,10 +1,10 @@
 .pokemon {
-  display: block;
   width: 100%;
   position: relative;
   overflow: hidden;
   position: fixed;
   z-index: 5;
+  background-color: var(--silver200);
   &__header {
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr;
@@ -70,10 +70,10 @@
     height: 65vh;
     box-shadow: var(--shadowWhite);
     &__description {
-      color: rgba(0, 0, 0, 0.6);
+      color: var(--gray200);
       text-align: justify;
       font-size: 16px;
-      line-height: 18px;
+      line-height: 22px;
       padding-bottom: 20px;
     }
     &__characteristics {
@@ -101,6 +101,12 @@
       flex-direction: row;
       justify-content: space-evenly;
       padding: 5px 0 20px;
+    }
+    &__abilities {
+      display: flex;
+      flex-direction: column;
+      padding: 5px 0 20px;
+      align-items: flex-start;
     }
     &__evolutions {
       display: flex;
@@ -169,7 +175,6 @@
     }
   }
   @include breakpoints(lg) {
-    display: block;
     width: 100%;
     height: 100%;
     position: relative;
@@ -189,27 +194,17 @@
       &__number {
         grid-column: 2 / span 2;
         grid-row: 1 / span 1;
-        margin: auto 0;
-        color: var(--black);
         text-align: right;
-        text-shadow: var(--shadowBlack);
         font-size: 26px;
         line-height: 28px;
       }
       &__name {
-        grid-column: 1 / span 3;
-        grid-row: 2 / span 1;
-        color: var(--black);
         text-align: right;
-        text-shadow: var(--shadowBlack);
         font-size: 28px;
         line-height: 30px;
         padding-bottom: 0px;
       }
       &__image {
-        grid-column: 1 / span 3;
-        grid-row: 3 / span 1;
-        position: absolute;
         top: 12%;
         left: 0;
         background-repeat: no-repeat;
@@ -221,57 +216,36 @@
     }
     &__content {
       padding: 40px 20px 0;
-      background-color: var(--silver100);
       border-radius: 0;
-      overflow-y: scroll;
       height: calc(100% - 25vh);
       box-shadow: var(--shadowBlack3);
       &__description {
-        color: rgba(0, 0, 0, 0.6);
-        text-align: justify;
         font-size: 16px;
-        line-height: 18px;
+        line-height: 22px;
         padding-bottom: 20px;
       }
       &__characteristics {
-        width: 100%;
-        text-align: center;
         margin-bottom: 20px;
-        border: 2px solid var(--silver200);
         border-radius: 25px;
         padding: 15px 0px;
-        th {
-          text-shadow: var(--shadowBlack);
-          padding-bottom: 5px;
-        }
       }
       &__subtitle {
-        color: var(--black);
-        text-shadow: var(--shadowBlack);
-        text-align: left;
         font-size: 16px;
         line-height: 18px;
         padding-bottom: 10px;
       }
       &__types {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
+        padding: 5px 0 20px;
+      }
+      &__abilities {
         padding: 5px 0 20px;
       }
       &__evolutions {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
         padding-bottom: 70px;
         margin-bottom: 50px;
         section {
-          background-repeat: no-repeat;
-          background-position: center center;
-          background-size: contain;
           height: 60px;
           width: 100%;
-          cursor: pointer;
         }
         section:hover {
           scale: 1.05;

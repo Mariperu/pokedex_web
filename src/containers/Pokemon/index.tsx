@@ -1,79 +1,67 @@
+import { MouseEventHandler, useState, useEffect } from "react";
 import { RiCloseCircleFill } from "react-icons/ri";
+import { GetPokemonDetailApiById, GetPokemonSpeciesApiById } from "@/pages/api";
 import { Logo } from "@/components/Logo";
 import { Type } from "@/components/Type";
-import { MouseEventHandler } from "react";
+import { capitalizer } from "@/helpers/capitalizer";
+import { StatChart } from "@/components/StatChart.js";
+import { POKEMON_TYPE_COLORS } from "@/utils/constants";
 
 type Props = {
   idPokemon: number;
   onHandleClose?: MouseEventHandler;
 };
 
-export const Pokemon = ({ idPokemon, onHandleClose }: Props) => {
-  const image = "/assets/pokeball.png";
-  console.log(idPokemon, "pokemon");
+type Pokemon = {
+  id: number;
+  name: string;
+  types: Array<string>;
+  image: string;
+};
 
-  // const pokemon = Data.filter((project) => project.id === projectId)[0];
+export const Pokemon = ({ idPokemon, onHandleClose }: Props) => {
+  const [color, setColor] = useState("");
+
+  const pokemon: any = GetPokemonDetailApiById(idPokemon);
+  const extraData: any = GetPokemonSpeciesApiById(idPokemon);
+  //console.log("👻 -> Pokemon -> extraData:", extraData[0]?.evolution);
+
+  const image = pokemon?.sprites?.other["official-artwork"].front_default;
+  const types = pokemon?.types?.map((item: any) => {
+    return item?.type.name;
+  });
+
+  useEffect(() => {
+    if (types) {
+      setColor(POKEMON_TYPE_COLORS[types[0]]);
+    }
+  }, [types]);
+
   return (
-    <section className="pokemon" style={{ backgroundColor: "green" }}>
+    <section
+      className="pokemon"
+      style={{
+        background: `linear-gradient(180deg, ${color} 0%, #FFF 37.50%)`,
+      }}
+    >
       <section className="pokemon__header">
         <Logo className="logoModal pokemon__header__logo" />
-        <p className="pokemon__header__number">#741</p>
+        <p className="pokemon__header__number">#{idPokemon}</p>
 
         <i onClick={onHandleClose}>
           <RiCloseCircleFill />
         </i>
-        <p className="pokemon__header__name">Bulbasaur</p>
+        <p className="pokemon__header__name">{capitalizer(pokemon?.name)}</p>
         <section
           className="pokemon__header__image"
-          style={{ backgroundImage: `url(${image})` }}
+          style={{
+            backgroundImage: `url(${image})`,
+          }}
         ></section>
       </section>
-
       <section className="pokemon__content">
         <p className="pokemon__content__description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
-          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
-          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
-          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
-          voluptatibus. Praesentium eaque facilis ducimus consequuntur
-          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
-        </p>
-        <p className="pokemon__content__description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
-          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
-          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
-          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
-          voluptatibus. Praesentium eaque facilis ducimus consequuntur
-          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
-        </p>
-        <p className="pokemon__content__description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
-          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
-          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
-          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
-          voluptatibus. Praesentium eaque facilis ducimus consequuntur
-          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
-        </p>
-        <p className="pokemon__content__description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
-          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
-          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
-          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
-          voluptatibus. Praesentium eaque facilis ducimus consequuntur
-          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
-        </p>
-        <p className="pokemon__content__description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sed
-          modi doloremque nostrum culpa, laudantium voluptatibus. Praesentium
-          eaque facilis ducimus consequuntur perspiciatis alias illum totam rem
-          adipisci, explicabo ut nemo. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Cumque sed modi doloremque nostrum culpa, laudantium
-          voluptatibus. Praesentium eaque facilis ducimus consequuntur
-          perspiciatis alias illum totam rem adipisci, explicabo ut nemo.
+          {extraData[0]?.description}
         </p>
 
         <table className="pokemon__content__characteristics">
@@ -85,32 +73,54 @@ export const Pokemon = ({ idPokemon, onHandleClose }: Props) => {
           </thead>
           <tbody>
             <tr>
-              <td>20 kg</td>
-              <td>50 cm</td>
+              <td>{String(pokemon?.weight / 10)} kg</td>
+              <td>{String(pokemon?.height / 10)} m</td>
             </tr>
           </tbody>
         </table>
 
         <p className="pokemon__content__subtitle">
-          <strong>Type:</strong>
+          <strong>{pokemon?.types?.length > 1 ? "Types:" : "Type:"}</strong>
         </p>
         <section className="pokemon__content__types">
-          <Type name={"grass"} className="typeModal" />
-          <Type name={"grass"} className="typeModal" />
+          {pokemon?.types?.map((item: any, index: number) => {
+            return (
+              <Type key={index} name={item?.type.name} className="typeModal" />
+            );
+          })}
         </section>
 
         <p className="pokemon__content__subtitle">
-          <strong>Hability:</strong> <span>Cover</span>
+          <strong>
+            {pokemon?.abilities?.length > 1 ? "Abilities:" : "Ability:"}
+          </strong>
         </p>
+        <section className="pokemon__content__abilities">
+          {pokemon?.abilities?.map((item: any, index: number) => {
+            return (
+              <Type
+                key={index}
+                name={item?.ability.name}
+                className="abilityModal"
+              />
+            );
+          })}
+        </section>
 
         <p className="pokemon__content__subtitle">
+          <strong>Stats:</strong>
+        </p>
+
+        <StatChart values={pokemon?.stats} />
+
+        {/* <p className="pokemon__content__subtitle">
           <strong>Evolution:</strong>
-        </p>
-        <section className="pokemon__content__evolutions">
+        </p> */}
+        {/* <section className="pokemon__content__evolutions">
           <section style={{ backgroundImage: `url(${image})` }}></section>
           <section style={{ backgroundImage: `url(${image})` }}></section>
           <section style={{ backgroundImage: `url(${image})` }}></section>
-        </section>
+        </section> */}
       </section>
     </section>
   );

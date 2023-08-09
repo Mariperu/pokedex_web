@@ -40,8 +40,10 @@ export const GetPokemonApi = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiUrl]);
+  
   return pokemons.sort((a: Pokemon, b: Pokemon) => a.id - b.id);
 };
+
 
 export const GetPokemonDetailApiById = (id: number) => {
   const [data, setData] = useState<object>({});

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GetPokemonApi } from "@/pages/api";
 import { Card } from "@/components/Card";
 import { Logo } from "@/components/Logo";
@@ -8,51 +8,72 @@ import { FloatingButton } from "@/components/FloatingButton";
 import Modal from "@/components/Modal";
 import { Pokemon } from "../Pokemon";
 import { capitalizer } from "@/helpers/capitalizer";
+import {
+  POKEMON_SORT,
+  POKEMON_TYPE,
+  initialStateOption,
+} from "@/utils/selectOptions";
 
-const initialState = {
-  valueSearch: "",
-  valueSort: "Sort by:",
-  type: "Type:",
-  rarity: "Rarity:",
+type Pokemon = {
+  id: number;
+  name: string;
+  types: Array<string>;
+  image: string;
 };
 
 export const Home = () => {
-  const types: Array<string> = ["fire", "grass", "water"];
+  const data = GetPokemonApi();
+  console.log("👻 -> Home -> data:", data);
 
-  const [valueSearch, setValueSearch] = useState(initialState.valueSearch);
-  const [valueSort, setValueSort] = useState(initialState.valueSort);
-  const [type, setType] = useState(initialState.type);
-  const [rarity, setRarity] = useState(initialState.rarity);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [pokemonId, setPokemonId] = useState<number | null>(null);
+  const [valueSort, setValueSort] = useState<string>(initialStateOption.sort);
 
-  const pokemons = GetPokemonApi();
+  useEffect(() => {
+    if (data) setPokemons(data);
+  }, [data]);
+
+  const [valueSearch, setValueSearch] = useState(initialStateOption.search);
+  const [type, setType] = useState(initialStateOption.type);
 
   const onSearch = (e: any) => {
     e.preventDefault();
     setValueSearch(e.target.elements.searchInput.value);
-    setValueSort(initialState.valueSort);
-    setType(initialState.type);
-    setRarity(initialState.rarity);
+    setValueSort(initialStateOption.sort);
+    setType(initialStateOption.type);
   };
 
-  const onSort = (e: any) => {
-    setValueSort(e.target.value);
-    setType(initialState.type);
-    setRarity(initialState.rarity);
+  const onSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const option = e.target.value;
+    const sortedPokemons = [...data];
+    sortedPokemons.sort((a: Pokemon, b: Pokemon) => {
+      if (option === "Descending") {
+        return b.id - a.id;
+      } else if (option === "Ascending") {
+        return a.id - b.id;
+      } else if (option === "A to Z") {
+        return a.name.localeCompare(b.name);
+      } else if (option === "Z to A") {
+        return b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
+    setValueSort(option);
+    setPokemons(sortedPokemons);
+    setType(initialStateOption.type);
   };
 
   const onFilterByType = (e: any) => {
-    setType(e.target.value);
-    setValueSort(initialState.valueSort);
-    setRarity(initialState.rarity);
-  };
-
-  const onFilterByRarity = (e: any) => {
-    setRarity(e.target.value);
-    setValueSort(initialState.valueSort);
-    setType(initialState.type);
+    const option = e.target.value;
+    const pokemons = [...data];
+    const filteredPokemons = pokemons.filter((element) =>
+      element.types.some((type: any) => type.type.name === option)
+    );
+    setType(option);
+    setPokemons(filteredPokemons);
+    setValueSort(initialStateOption.sort);
   };
 
   const onHandlePokemonId = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -92,22 +113,16 @@ export const Home = () => {
           </section>
           <section className="home__main__selects">
             <Select
-              name={valueSort}
-              options={types}
+              name={"Sort by:"}
+              options={POKEMON_SORT}
               value={valueSort}
               onHandleChange={onSort}
             />
             <Select
-              name={type}
-              options={types}
+              name={"Type:"}
+              options={POKEMON_TYPE}
               value={type}
               onHandleChange={onFilterByType}
-            />
-            <Select
-              name={rarity}
-              options={types}
-              value={rarity}
-              onHandleChange={onFilterByRarity}
             />
           </section>
 

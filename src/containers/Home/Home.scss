@@ -4,6 +4,7 @@
   padding: 40px 20px;
   text-align: center;
   animation: fadein 1s ease-in-out;
+  min-height: 88vh;
   @keyframes fadein {
     from {
       opacity: 1;
@@ -95,6 +96,7 @@
     display: grid;
     grid-template-columns: 2fr 0.65fr;
     column-gap: 10px;
+    min-height: unset;
     &__main {
       display: grid;
       grid-template-columns: 1fr 2fr;

@@ -3,7 +3,7 @@ type Props = {
 };
 
 export const NoPokemon = ({ text }: Props) => {
-  const image = "/assets/shadow.png";
+  const image = "/assets/shadow.webp";
   return (
     <section className="no-pokemon">
       <section className="no-pokemon__header">

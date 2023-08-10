@@ -17,7 +17,7 @@ export const BasicLayout = (props: Props) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2800);
+    }, 2500);
   }, [loading]);
 
   if (loading) {

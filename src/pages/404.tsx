@@ -2,7 +2,7 @@ import { BasicLayout } from "@/layouts";
 import { Error } from "@/components/Error";
 
 export default function Custom404() {
-  const image = "./assets/error.png";
+  const image = "./assets/error.webp";
   return (
     <BasicLayout
       title="Error 404"

@@ -165,7 +165,7 @@ export const Home = ({ pokemonsData }: Props) => {
               ) : (
                 noFound && (
                   <p className="home__main__cards__no-found">
-                    No results found.
+                    Pokemon not found.
                   </p>
                 )
               ))}
@@ -176,7 +176,7 @@ export const Home = ({ pokemonsData }: Props) => {
           {isOpen === false && pokemonId !== null ? (
             <Pokemon idPokemon={pokemonId} />
           ) : (
-            <NoPokemon text={"Choose a Pokémon to display here."} />
+            <NoPokemon text={"Choose a Pokemon to display here."} />
           )}
         </section>
 

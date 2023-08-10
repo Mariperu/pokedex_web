@@ -1,8 +1,10 @@
 .type {
   border-radius: 10px;
   padding: 3px 12px 2px;
-  font-size: 10px;
-  line-height: 12px;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
   color: var(--white);
   text-shadow: var(--shadowBlack);
   text-align: center;
@@ -26,6 +28,8 @@
   padding: 6px 18px 5px;
   font-size: 16px;
   line-height: 18px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
   text-align: center;
   text-shadow: var(--shadowBlack);
   display: flex;

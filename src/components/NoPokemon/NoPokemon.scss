@@ -25,6 +25,9 @@
     box-shadow: var(--shadowBlack);
     display: flex;
     flex-direction: column;
+    section {
+      margin: auto 0;
+    }
     p {
       margin: auto 0;
       font-size: 18px;

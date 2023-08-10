@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { GetPokemonApi } from "@/pages/api";
+import {
+  POKEMON_SORT,
+  POKEMON_TYPE,
+  initialStateOption,
+} from "@/utils/selectOptions";
 import { Card } from "@/components/Card";
 import { Logo } from "@/components/Logo";
 import { Search } from "@/components/Search";
@@ -8,12 +12,11 @@ import { FloatingButton } from "@/components/FloatingButton";
 import Modal from "@/components/Modal";
 import { Pokemon } from "../Pokemon";
 import { capitalizer } from "@/helpers/capitalizer";
-import {
-  POKEMON_SORT,
-  POKEMON_TYPE,
-  initialStateOption,
-} from "@/utils/selectOptions";
 import { NoPokemon } from "@/components/NoPokemon";
+
+type Props = {
+  pokemonsData: any[];
+};
 
 type Pokemon = {
   id: number;
@@ -22,53 +25,63 @@ type Pokemon = {
   image: string;
 };
 
-export const Home = () => {
-  const data = GetPokemonApi();
+const SortingOptions: { [key: string]: (a: Pokemon, b: Pokemon) => number } = {
+  Descending: (a, b) => b.id - a.id,
+  Ascending: (a, b) => a.id - b.id,
+  "A to Z": (a, b) => a.name.localeCompare(b.name),
+  "Z to A": (a, b) => b.name.localeCompare(a.name),
+};
+
+export const Home = ({ pokemonsData }: Props) => {
+  const data = pokemonsData;
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [pokemonId, setPokemonId] = useState<number | null>(null);
   const [search, setSearch] = useState(initialStateOption.search);
   const [valueSort, setValueSort] = useState<string>(initialStateOption.sort);
   const [type, setType] = useState(initialStateOption.type);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [noFound, setNoFound] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) setPokemons(data);
   }, [data]);
 
   const onSearch = (query: string) => {
-    const pokemons = [...data];
-    const searchedPokemons = pokemons.filter(
+    const searchedPokemons = [...data].filter(
       (elem) =>
         elem.name.toLowerCase().includes(query.toLowerCase()) ||
         elem.id.toString().includes(query)
     );
-    if (query.length > 3 && searchedPokemons.length === 0) {
+    if (query.length > 1 && searchedPokemons.length === 0) {
       setPokemons([]);
+      setNoFound(true);
     } else {
-      setPokemons(searchedPokemons);
+      setTimeout(() => {
+        setNoFound(false);
+        setPokemons(searchedPokemons);
+      }, 100);
     }
     setValueSort(initialStateOption.sort);
     setType(initialStateOption.type);
+    setPokemonId(null);
   };
 
   const onSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const option = e.target.value;
-    const sortedPokemons = [...data];
-    sortedPokemons.sort((a: Pokemon, b: Pokemon) => {
-      if (option === "Descending") {
-        return b.id - a.id;
-      } else if (option === "Ascending") {
-        return a.id - b.id;
-      } else if (option === "A to Z") {
-        return a.name.localeCompare(b.name);
-      } else if (option === "Z to A") {
-        return b.name.localeCompare(a.name);
-      }
-      return 0;
-    });
+    const sortingOptions = SortingOptions[option];
+    if (sortingOptions) {
+      const sortedPokemons = [...data].sort(sortingOptions);
+      setPokemons([]);
+      setLoading(true);
+      setTimeout(() => {
+        setPokemons(sortedPokemons);
+        setLoading(false);
+      }, 300);
+    }
     setValueSort(option);
-    setPokemons(sortedPokemons);
     setType(initialStateOption.type);
+    setPokemonId(null);
   };
 
   const onFilterByType = (e: any) => {
@@ -80,6 +93,7 @@ export const Home = () => {
     setType(option);
     setPokemons(filteredPokemons);
     setValueSort(initialStateOption.sort);
+    setPokemonId(null);
   };
 
   const onHandlePokemonId = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -87,14 +101,11 @@ export const Home = () => {
     const id = Number(e.currentTarget.id);
     const screen = window.innerWidth;
     if (screen <= 1199) {
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 10);
-      setIsOpen(!isOpen);
+      setIsOpen(true);
       setPokemonId(id);
     } else {
-      setPokemonId(id);
       setIsOpen(false);
+      setPokemonId(id);
     }
   };
 
@@ -148,22 +159,30 @@ export const Home = () => {
                 />
               );
             })}
-            {pokemons?.length === 0 && (
-              <p className="home__main__cards__no-found">No results found.</p>
-            )}
+            {pokemons?.length === 0 &&
+              (loading ? (
+                <p className="home__main__cards__no-found">Loading . . .</p>
+              ) : (
+                noFound && (
+                  <p className="home__main__cards__no-found">
+                    Pokemon not found.
+                  </p>
+                )
+              ))}
           </section>
         </section>
 
         <section className="home__detail">
-          {pokemonId !== null ? (
+          {isOpen === false && pokemonId !== null ? (
             <Pokemon idPokemon={pokemonId} />
           ) : (
-            <NoPokemon />
+            <NoPokemon text={"Choose a Pokemon to display here."} />
           )}
         </section>
 
         <FloatingButton />
       </section>
+
       {isOpen && pokemonId !== null && (
         <Modal isOpen={isOpen} onHandleClose={onHandleClose}>
           <Pokemon idPokemon={pokemonId} onHandleClose={onHandleClose} />

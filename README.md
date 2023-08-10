@@ -1,6 +1,6 @@
 # **Pokedex**
 
-![Pokémon](/public/favicon.ico)
+![Pokemon](/public/favicon.ico)
 
 ## 🛠️**Getting Started**
 

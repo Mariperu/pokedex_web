@@ -5,13 +5,11 @@ type Props = {
 };
 
 export const Logo = ({ className }: Props) => {
-  const image = "/assets/logo.png";
+  const image = "/assets/logo.webp";
 
   return (
     <section className={className}>
-      <Link href="/" passHref>
-        <section style={{ backgroundImage: `url(${image})` }}></section>
-      </Link>
+      <section style={{ backgroundImage: `url(${image})` }}></section>
     </section>
   );
 };

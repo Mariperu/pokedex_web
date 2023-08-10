@@ -1,0 +1,26 @@
+.deactive-pokemon {
+  display: none;
+}
+.loading-pokemon {
+  display: none;
+  @include breakpoints(lg) {
+    display: block;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    p {
+      animation: scale-up 0.8s ease-in-out alternate infinite;
+    }
+  }
+}
+
+@keyframes scale-up {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.5);
+  }
+}

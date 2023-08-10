@@ -78,8 +78,8 @@
   }
   @include breakpoints(lg) {
     border-radius: 10px;
-    padding: 20px;
-    max-height: 140px;
+    padding: 18px;
+    max-height: 120px;
     &__number {
       padding-bottom: 20px;
       font-size: 18px;

@@ -9,11 +9,6 @@ interface Pokemon {
   image: string;
 }
 
-interface Species {
-  description?: string;
-  evolution?: any;
-}
-
 export const GetPokemonApi = () => {
   const apiUrl = `${API_HOST}/pokemon?limit=251&offset=0`;
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -50,7 +45,7 @@ export const GetPokemonDetailApiById = (id: number) => {
   const url = `${API_HOST}/pokemon/${id}`;
   useEffect(() => {
     axios
-      .get<object>(url)
+      .get(url)
       .then((response) => {
         setData(response?.data);
       })

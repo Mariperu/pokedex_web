@@ -1,4 +1,8 @@
-export const NoPokemon = () => {
+type Props = {
+  text: string;
+};
+
+export const NoPokemon = ({ text }: Props) => {
   const image = "/assets/shadow.png";
   return (
     <section className="no-pokemon">
@@ -11,7 +15,7 @@ export const NoPokemon = () => {
         ></section>
       </section>
       <section className="no-pokemon__content">
-        <p>Choose a Pokémon to display here.</p>
+        <p>{text}</p>
       </section>
     </section>
   );

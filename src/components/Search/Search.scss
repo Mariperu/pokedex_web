@@ -1,3 +1,8 @@
+.playSound,
+.stopSound {
+  color: var(--red);
+}
+
 .search {
   margin: 20px 0;
   width: 100%;
@@ -46,6 +51,9 @@
       justify-content: center;
       cursor: pointer;
       transition: ease 0.3s;
+      span {
+        display: none;
+      }
     }
     button:hover {
       scale: 1.1;
@@ -70,6 +78,13 @@
       }
       button {
         font-size: 22px;
+        span {
+          display: block;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          font-size: 14px;
+        }
       }
     }
   }

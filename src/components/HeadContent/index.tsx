@@ -24,7 +24,10 @@ export function HeadContent({
         <meta name="description" content={description} />
         <meta property="og:title" content="Pokedex" />
         <meta property="og:description" content={og_description} />
-        {/* <meta property="og:url" content="https://vercel.com/" /> */}
+        <meta
+          property="og:url"
+          content="https://pokedex-web-navy.vercel.app/"
+        />
         <meta property="og:type" content="website" />
         <meta name="keywords" content={keywords} />
         <meta name="author" content="Maritza Rodriguez" />

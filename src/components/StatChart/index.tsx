@@ -9,8 +9,8 @@ import { PolarArea } from "react-chartjs-2";
 import {
   POKEMON_STATS_COLORS,
   POKEMON_STATS_PASTEL_COLORS,
-} from "./../../utils/constants";
-import { capitalizer } from "./../../helpers/capitalizer";
+} from "../../utils/constants";
+import { capitalizer } from "../../helpers/capitalizer";
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 

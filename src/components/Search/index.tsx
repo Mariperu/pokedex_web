@@ -5,9 +5,18 @@ type Props = {
   placeholder: string;
   value: string | number;
   onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  playSound?: any;
+  stopSound?: any;
+  isPlaying: boolean;
 };
 
-export const Search = ({ onHandleChange, placeholder, value }: Props) => {
+export const Search = ({
+  onHandleChange,
+  placeholder,
+  value,
+  playSound,
+  isPlaying,
+}: Props) => {
   return (
     <section className="search">
       <label>Who do you want to catch?</label>
@@ -20,9 +29,18 @@ export const Search = ({ onHandleChange, placeholder, value }: Props) => {
           required
           onChange={onHandleChange}
         />
-        <button>
-          <TbMusic />
-          {/* <TbMusicOff /> */}
+
+        <button onClick={playSound}>
+          {isPlaying ? (
+            <>
+              <TbMusicOff className="stopSound" /> <span>Pause</span>
+            </>
+          ) : (
+            <>
+              <TbMusic className="playSound" />
+              <span>Play</span>
+            </>
+          )}
         </button>
       </div>
     </section>

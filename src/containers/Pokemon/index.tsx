@@ -1,12 +1,9 @@
 import { MouseEventHandler, useState, useEffect } from "react";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { GetPokemonDetailApiById, GetPokemonSpeciesApiById } from "@/pages/api";
-import { Logo } from "@/components/Logo";
-import { Type } from "@/components/Type";
+import { Logo, Type, StatChart, LoadingPokemon } from "@/components";
 import { capitalizer } from "@/helpers/capitalizer";
-import { StatChart } from "@/components/StatChart.js";
 import { POKEMON_TYPE_COLORS } from "@/utils/constants";
-import { LoadingPokemon } from "@/components/LoadingPokemon";
 
 type Props = {
   idPokemon: number;

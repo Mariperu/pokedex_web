@@ -1,7 +1,15 @@
+// .sound {
+//   position: fixed;
+//   right: 0;
+//   width: 250px;
+//   height: 40px;
+//   background: transparent;
+// }
+
 .home {
   display: flex;
   flex-direction: column;
-  padding: 40px 20px;
+  padding: 40px 15px;
   text-align: center;
   animation: fadein 1s ease-in-out;
   min-height: 88vh;

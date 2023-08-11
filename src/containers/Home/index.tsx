@@ -4,15 +4,17 @@ import {
   POKEMON_TYPE,
   initialStateOption,
 } from "@/utils/selectOptions";
-import { Card } from "@/components/Card";
-import { Logo } from "@/components/Logo";
-import { Search } from "@/components/Search";
-import { Select } from "@/components/Select";
-import { FloatingButton } from "@/components/FloatingButton";
-import Modal from "@/components/Modal";
-import { Pokemon } from "../Pokemon";
 import { capitalizer } from "@/helpers/capitalizer";
-import { NoPokemon } from "@/components/NoPokemon";
+import Modal from "@/components/Modal";
+import {
+  Card,
+  Logo,
+  Search,
+  Select,
+  FloatingButton,
+  NoPokemon,
+} from "@/components";
+import { Pokemon } from "../Pokemon";
 
 type Props = {
   pokemonsData: any[];
@@ -42,6 +44,8 @@ export const Home = ({ pokemonsData }: Props) => {
   const [type, setType] = useState(initialStateOption.type);
   const [loading, setLoading] = useState<boolean>(false);
   const [noFound, setNoFound] = useState<boolean>(false);
+  const [sound, setSound] = useState<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) setPokemons(data);
@@ -114,8 +118,33 @@ export const Home = ({ pokemonsData }: Props) => {
     setIsOpen(false);
     setPokemonId(null);
   };
+  const song = "./assets/pokemon.mp3";
+  const playSound = () => {
+    if (sound) {
+      if (isPlaying) {
+        sound.pause();
+        //sound.currentTime = 0;
+      } else {
+        sound.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <>
+      <audio
+        ref={(elem) => setSound(elem)}
+        //src={song}
+        //controls
+        autoPlay
+        loop
+        preload="auto"
+        className="sound"
+      >
+        Your browser does not support the audio element.
+        <source src={song} type="audio/mp3" />
+      </audio>
       <section className="home">
         <section className="home__main">
           <section className="home__main__logo">
@@ -129,6 +158,8 @@ export const Home = ({ pokemonsData }: Props) => {
               }}
               placeholder={"Example: Pikachu"}
               value={search}
+              playSound={playSound}
+              isPlaying={isPlaying}
             />
           </section>
           <section className="home__main__selects">

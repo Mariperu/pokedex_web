@@ -35,7 +35,7 @@ This application is deployed on `Vercel` and updates automatically when pushing 
 
 - `Lighthouse`
 
-  Upload test capture here...
+![lighthouse](/public/assets/lighthouse.png)
 
 ## **Author** ✒️
 

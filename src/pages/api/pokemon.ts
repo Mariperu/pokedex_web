@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_HOST } from "../../utils/constants";
-import { useEffect, useState } from "react";
 
-interface Pokemon {
+type Pokemon = {
   id: number;
   name: string;
   types: Array<string>;
@@ -35,14 +35,14 @@ export const GetPokemonApi = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiUrl]);
-  
+
   return pokemons.sort((a: Pokemon, b: Pokemon) => a.id - b.id);
 };
-
 
 export const GetPokemonDetailApiById = (id: number) => {
   const [data, setData] = useState<object>({});
   const url = `${API_HOST}/pokemon/${id}`;
+
   useEffect(() => {
     axios
       .get(url)
@@ -59,19 +59,46 @@ export const GetPokemonDetailApiById = (id: number) => {
 export const GetPokemonSpeciesApiById = (id: number) => {
   const apiUrl = `${API_HOST}/pokemon-species/${id}`;
   const [species, setSpecies] = useState<any>({});
-  const speciesArray: any = [];
 
   useEffect(() => {
     try {
       axios.get(apiUrl).then((response) => {
-        const description = response.data?.flavor_text_entries[10].flavor_text;
         axios.get(response.data?.evolution_chain.url).then((resp) => {
-          const evolution = resp.data.chain.evolves_to
-          speciesArray.push({
-            description: description,
-            evolution: evolution,
-          });
-          setSpecies(speciesArray);
+          const evolution = resp.data?.chain;
+          const evolution1 = evolution?.species.name;
+          const evolution2 = evolution?.evolves_to[0]?.species.name;
+          const evolution3 =
+            evolution?.evolves_to[0]?.evolves_to[0]?.species.name;
+          const evolution3_1 = evolution?.evolves_to[1]?.species.name;
+          const evolution4 =
+            evolution?.evolves_to[0]?.evolves_to[1]?.species.name;
+          const evolution4_1 = evolution?.evolves_to[2]?.species.name;
+          const evolution5 = evolution?.evolves_to[3]?.species.name;
+          const evolution6 = evolution?.evolves_to[4]?.species.name;
+          const data = {
+            description: response.data?.flavor_text_entries[10].flavor_text,
+            generation: response.data?.generation.name,
+            habitat: response.data?.habitat.name,
+            is_legendary: response.data?.is_legendary,
+            is_mythical: response.data?.is_mythical,
+            evolution: [
+              evolution1,
+              evolution2 !== undefined ? evolution2 : "",
+              evolution3 !== undefined
+                ? evolution3
+                : evolution3_1 !== undefined
+                ? evolution3_1
+                : "",
+              evolution4 !== undefined
+                ? evolution4
+                : evolution4_1 !== undefined
+                ? evolution4_1
+                : "",
+              evolution5 !== undefined ? evolution5 : "",
+              evolution6 !== undefined ? evolution6 : "",
+            ],
+          };
+          setSpecies(data);
         });
       });
     } catch (error) {

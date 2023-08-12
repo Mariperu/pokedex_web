@@ -1,4 +1,5 @@
 export * from "./Card";
+export * from "./CardEvolution";
 export * from "./Error";
 export * from "./FloatingButton";
 export * from "./Footer";

@@ -1,6 +1,6 @@
-import { Home } from "@/containers";
-import { BasicLayout } from "@/layouts";
 import { GetPokemonApi } from "./api";
+import { BasicLayout } from "@/layouts";
+import { Home } from "@/containers";
 
 export default function HomePage() {
   const data = GetPokemonApi();

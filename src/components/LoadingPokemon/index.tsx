@@ -1,5 +1,4 @@
 import { NoPokemon } from "../NoPokemon";
-import { ReactNode } from "react";
 
 type Props = {
   active: boolean;

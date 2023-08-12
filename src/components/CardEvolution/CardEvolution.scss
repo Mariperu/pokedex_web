@@ -1,0 +1,33 @@
+.card-evolution {
+  cursor: pointer;
+  box-shadow: var(--shadowBlack3);
+  padding: 10px;
+  border-radius: 10px;
+  width: 80%;
+  &__image {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    height: 60px;
+    width: 100%;
+  }
+  &__number,
+  &__name {
+    font-size: 14px;
+    color: var(--black);
+    text-shadow: var(--shadowBlack);
+    letter-spacing: 0.5px;
+  }
+  &__number {
+    text-align: left;
+  }
+  &__name {
+    padding: 5px 0 0;
+    text-align: center;
+  }
+}
+.card-evolution:hover {
+  transition: ease 0.3s;
+  scale: 1.05;
+  box-shadow: var(--shadowBlack2);
+}

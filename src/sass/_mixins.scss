@@ -1,7 +1,7 @@
 @mixin breakpoints($point) {
   @if $point == xxs {
-    //384px
-    @media (min-width: 24em) {
+    //368px
+    @media (min-width: 23em) {
       @content;
     }
   }

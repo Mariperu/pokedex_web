@@ -4,7 +4,6 @@ import { ScrollIdentifier } from "@/hooks/UseScrollIdentifier";
 
 export const FloatingButton = () => {
   const showButton = ScrollIdentifier(300);
-
   return (
     <>
       {showButton && (

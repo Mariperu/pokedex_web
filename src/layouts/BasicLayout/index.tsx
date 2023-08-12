@@ -1,7 +1,5 @@
 import { ReactNode, useState, useEffect } from "react";
-import { HeadContent } from "./../../components";
-import { Footer } from "@/components/Footer";
-import { Loading } from "@/components/Loading";
+import { HeadContent, Footer, Loading } from "@/components";
 
 type Props = {
   children: ReactNode;

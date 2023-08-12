@@ -1,8 +1,8 @@
 import Link from "next/link";
-
 type Props = {
   image: string;
 };
+
 export const Error = ({ image }: Props) => {
   return (
     <section className="error">

@@ -47,7 +47,7 @@ export const StatChart = ({ values }: Props) => {
     plugins: {
       legend: {
         display: true,
-        position: "bottom" as const,
+        position: "top" as const,
       },
       title: {
         display: false,
@@ -56,9 +56,5 @@ export const StatChart = ({ values }: Props) => {
     },
   };
 
-  return (
-    <section style={{ paddingBottom: "80px" }}>
-      <PolarArea data={dataChart} options={myOptions} />
-    </section>
-  );
+  return <PolarArea data={dataChart} options={myOptions} />;
 };

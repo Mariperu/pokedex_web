@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
+import Data from "./../../pages/api/data.json";
+import { capitalizer } from "@/helpers/capitalizer";
 import {
   POKEMON_SORT,
   POKEMON_TYPE,
   initialStateOption,
 } from "@/utils/selectOptions";
-import { capitalizer } from "@/helpers/capitalizer";
 import Modal from "@/components/Modal";
+import { Pokemon } from "../Pokemon";
 import {
   Card,
   Logo,
@@ -14,7 +16,6 @@ import {
   FloatingButton,
   NoPokemon,
 } from "@/components";
-import { Pokemon } from "../Pokemon";
 
 type Props = {
   pokemonsData: any[];
@@ -118,12 +119,11 @@ export const Home = ({ pokemonsData }: Props) => {
     setIsOpen(false);
     setPokemonId(null);
   };
-  const song = "./assets/pokemon.mp3";
+
   const playSound = () => {
     if (sound) {
       if (isPlaying) {
-        sound.pause();
-        //sound.currentTime = 0;
+        sound.pause(); //sound.currentTime = 0;
       } else {
         sound.play();
       }
@@ -135,15 +135,13 @@ export const Home = ({ pokemonsData }: Props) => {
     <>
       <audio
         ref={(elem) => setSound(elem)}
-        //src={song}
-        //controls
         autoPlay
         loop
         preload="auto"
         className="sound"
       >
         Your browser does not support the audio element.
-        <source src={song} type="audio/mp3" />
+        <source src={Data.pokemon_music} type="audio/mp3" />
       </audio>
       <section className="home">
         <section className="home__main">
@@ -205,7 +203,11 @@ export const Home = ({ pokemonsData }: Props) => {
 
         <section className="home__detail">
           {isOpen === false && pokemonId !== null ? (
-            <Pokemon idPokemon={pokemonId} />
+            <Pokemon
+              idPokemon={pokemonId}
+              pokemons={data}
+              onHandlePokemonId={onHandlePokemonId}
+            />
           ) : (
             <NoPokemon text={"Choose a Pokemon to display here."} />
           )}
@@ -216,7 +218,12 @@ export const Home = ({ pokemonsData }: Props) => {
 
       {isOpen && pokemonId !== null && (
         <Modal isOpen={isOpen} onHandleClose={onHandleClose}>
-          <Pokemon idPokemon={pokemonId} onHandleClose={onHandleClose} />
+          <Pokemon
+            idPokemon={pokemonId}
+            onHandleClose={onHandleClose}
+            pokemons={data}
+            onHandlePokemonId={onHandlePokemonId}
+          />
         </Modal>
       )}
     </>

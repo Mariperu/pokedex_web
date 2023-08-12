@@ -1,0 +1,6 @@
+{
+    "error_image": "./assets/error.webp",
+    "logo_image": "./assets/logo.webp",
+    "shadow_image": "./assets/shadow.webp",
+    "pokemon_music": "./assets/pokemon.mp3"
+}

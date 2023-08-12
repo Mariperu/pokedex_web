@@ -21,6 +21,11 @@ export const POKEMON_TYPE_COLORS: any = {
   fairy: "#EE99AC",
 };
 
+export const POKEMON_RARITY_COLORS: any = {
+  legendary: "#FFBF00",
+  mythical: "#8F00FF",
+}
+
 export const POKEMON_STATS_COLORS: any = [
   "rgba(255, 99, 132, 0.5)",
   "rgba(54, 162, 235, 0.7)",
